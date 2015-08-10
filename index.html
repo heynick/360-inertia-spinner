@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html class="csstransforms3d">
 	<head>
-		<title>360 car spinner</title>
+		<title>360 drag spinner</title>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 
@@ -15,25 +15,36 @@
 
 			body {
 				margin: 0;
+				color: #333;
+				font-family: sans-serif;
 			}
 			
-			#car-container {
+			#drag-container {
 				margin: auto;
-				border: 1px solid #999;
-				background-repeat: no-repeat;
 				width: 640px;
 				overflow: hidden;
 			}
 			
-			#car-img {
+			#drag-img {
 				position: relative; // required for ie8!!
 			}
 
 			#colour-picker {
-				margin-top: 2em;
+				font-size: 20px;
+				text-align: center;
 			}
-			.active {
-				color: pink;
+			#colour-picker a {
+				color: #333;
+				text-decoration: none;
+			}
+
+			#colour-picker p {
+				font-size: 20px;
+			}
+
+			#colour-picker .active {
+				color: tomato;
+				text-decoration: underline;
 			}
 		</style>
 
@@ -41,13 +52,14 @@
 	
 	<body>
 		<div id="loader"></div>
-		<div id="car-drag-area">
-			<div id="car-container">
-				<img id='car-img' alt=''>
+		<div id="drag-area">
+			<div id="drag-container">
+				<img id='drag-img' alt=''>
 			</div>
 		</div>
 
 		<div id="colour-picker">
+			<p>Select a colour</p>
 			<a href="#img" id="one" class="active">one</a>
 			<a href="#img2" id="two">two</a>
 		</div>

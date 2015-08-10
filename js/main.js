@@ -6,9 +6,9 @@ $(document).ready(function(){
         dragSpeed = 36, // lower = faster spin whilst dragging
         dragging = false,
         lastMousePosX = 0,
-        $carDragArea = $('#car-drag-area'),
-        $carContainer = $('#car-container'),
-        $carImg = $('#car-img'),
+        $dragArea = $('#drag-area'),
+        $dragContainer = $('#drag-container'),
+        $dragImg = $('#drag-img'),
         useTransforms = $('html').hasClass('csstransforms3d'); // use modernizr
         
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
             console.log('loading finished');
 
             // now that the img has loaded, we swap out the src attribute
-            $carImg.attr('src', imgPath);
+            $dragImg.attr('src', imgPath);
             
         });
 
@@ -91,7 +91,7 @@ $(document).ready(function(){
 
         var offsetLeft;
 
-        $carDragArea.on('mousedown touchstart', function(e) {
+        $dragArea.on('mousedown touchstart', function(e) {
 
             if (e.type !== 'touchstart') {
                 e.preventDefault();
@@ -124,7 +124,7 @@ $(document).ready(function(){
                 e.preventDefault();
             }
 
-            offsetLeft = e.pageX - $carContainer[0].offsetLeft;
+            offsetLeft = e.pageX - $dragContainer[0].offsetLeft;
             
             if (dragging) {
                 measureInputMovement(e);
@@ -141,9 +141,11 @@ $(document).ready(function(){
             // here we make sure that mouseup/touchend
             // don't trigger the intertia function, unless
             // you actually mouseup/touchend on the car-drag-area
+            // like you could otherwise drag off the browser, and release
+            // and it would still spin, which wouldn't feel right
             var $mouseUpArea = $(e.target);
 
-            if ($mouseUpArea.attr('id') === 'car-drag-area' || $mouseUpArea.parents('#car-drag-area').length) {
+            if ($mouseUpArea.attr('id') === 'drag-area' || $mouseUpArea.parents('#drag-area').length) {
                 finish = Math.abs(inputMovementSpeed);
                 inertia(offsetLeft);
             }
@@ -156,13 +158,13 @@ $(document).ready(function(){
         // Modernizr test if browser supports csstransforms3d, otherwise just use 'left'
         if ( useTransforms ) {
 
-            $carImg.css({
+            $dragImg.css({
                 'transform': 'translate3D(-' + (frameWidth * currentImg) + 'px, 0, 0)'
             });
 
         } else {
 
-            $carImg.css({
+            $dragImg.css({
                 'left': -(frameWidth * currentImg)
             });
 
